@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - Student Results</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>All Student Results</h1>
+
+    <h2>Submitted Quiz Results</h2>
+
+    {% if results %}
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Student Name</th>
+            <th>Email</th>
+            <th>Quiz</th>
+            <th>Score</th>
+            <th>Percentage</th>
+            <th>Submission Date</th>
+        </tr>
+
+        {% for result in results %}
+        <tr>
+            <td>{{ result["full_name"] }}</td>
+            <td>{{ result["email"] }}</td>
+            <td>{{ result["title"] }}</td>
+            <td>
+                {{ result["score"] }} / {{ result["total_questions"] }}
+            </td>
+            <td>
+                {% if result["total_questions"] > 0 %}
+                    {{ ((result["score"] / result["total_questions"]) * 100)|round(1) }}%
+                {% else %}
+                    0%
+                {% endif %}
+            </td>
+            <td>{{ result["submitted_at"] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% else %}
+        <p>No quiz results available yet.</p>
+    {% endif %}
+
+    <hr>
+
+    <h2>All Quiz Attempts</h2>
+
+    {% if attempts %}
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Student Name</th>
+            <th>Email</th>
+            <th>Quiz</th>
+            <th>Start Date</th>
+            <th>Submission Date</th>
+            <th>Status</th>
+        </tr>
+
+        {% for attempt in attempts %}
+        <tr>
+            <td>{{ attempt["full_name"] }}</td>
+            <td>{{ attempt["email"] }}</td>
+            <td>{{ attempt["title"] }}</td>
+            <td>{{ attempt["started_at"] }}</td>
+            <td>{{ attempt["submitted_at"] or "-" }}</td>
+            <td>{{ attempt["status"]|capitalize }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% else %}
+        <p>No quiz attempts available.</p>
+    {% endif %}
+
+    <br>
+
+    <a href="{{ url_for('admin_dashboard') }}">
+        Back to Admin Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Quiz Results | Online Quiz Engine</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .results-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .results-table {
+            min-width: 650px;
+        }
+
+        .results-table td {
+            padding: 16px;
+        }
+
+        .percentage {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .empty-results {
+            text-align: center;
+            padding: 35px;
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <header>
+        <div>
+            <h1>My Quiz Results</h1>
+            <p>Review your examination history and performance</p>
+        </div>
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+    </header>
+
+    <!-- Results Section -->
+    <div class="section">
+
+        <h2>Examination History</h2>
+
+        {% if results %}
+
+            <div class="results-table-wrapper">
+
+                <table class="results-table">
+
+                    <thead>
+                        <tr>
+                            <th>Quiz Name</th>
+                            <th>Score</th>
+                            <th>Percentage</th>
+                            <th>Submission Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for result in results %}
+
+                        <tr>
+
+                            <td>
+                                <strong>{{ result["title"] }}</strong>
+                            </td>
+
+                            <td>
+                                {{ result["score"] }}
+                                /
+                                {{ result["total_questions"] }}
+                            </td>
+
+                            <td class="percentage">
+
+                                {% if result["total_questions"] > 0 %}
+
+                                    {{ ((result["score"] / result["total_questions"]) * 100)|round(1) }}%
+
+                                {% else %}
+
+                                    0%
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+                                {{ result["submitted_at"] }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-results">
+
+                <h3>No Quiz Results Yet</h3>
+
+                <p>
+                    You haven't attempted any quizzes.
+                    Start your first examination!
+                </p>
+
+                <br>
+
+                <a class="btn"
+                   href="{{ url_for('available_quizzes') }}">
+                    Explore Quizzes
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Online Quiz and Exam Engine | Student Portal</p>
+    </footer>
+
+</div>
+
+</body>
+</html>

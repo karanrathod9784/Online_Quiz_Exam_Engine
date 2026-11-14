@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard | Online Quiz Engine</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <header>
+        <div>
+            <h1>Online Quiz Engine</h1>
+            <p>Student Dashboard</p>
+        </div>
+
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </header>
+
+    <!-- Welcome Section -->
+    <div class="section">
+
+        <h2>Welcome, {{ full_name }}!</h2>
+
+        <p>
+            Welcome to your personal examination dashboard.
+            Track your learning and test your knowledge.
+        </p>
+
+    </div>
+
+    <!-- Student Features -->
+    <div class="section">
+
+        <h2>Student Activities</h2>
+
+        <div class="stats-container">
+
+            <!-- Available Quizzes -->
+            <div class="stat-card">
+
+                <h3>Available Quizzes</h3>
+
+                <p>Start</p>
+
+                <p class="status">
+                    Explore quizzes and test your knowledge.
+                </p>
+
+                <a class="btn"
+                   href="{{ url_for('available_quizzes') }}">
+                    View Available Quizzes
+                </a>
+
+            </div>
+
+            <!-- Quiz History -->
+            <div class="stat-card">
+
+                <h3>Quiz History</h3>
+
+                <p>Results</p>
+
+                <p class="status">
+                    Review your previous attempts and scores.
+                </p>
+
+                <a class="btn"
+                   href="{{ url_for('student_results') }}">
+                    View Quiz Results
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Instructions -->
+    <div class="section">
+
+        <h2>Examination Guidelines</h2>
+
+        <ul>
+            <li>Read every question carefully.</li>
+            <li>Choose the correct answer.</li>
+            <li>Complete your quiz within the given time.</li>
+            <li>Submit your answers before the timer expires.</li>
+            <li>Check your results after submission.</li>
+        </ul>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Online Quiz and Exam Engine | Student Portal</p>
+    </footer>
+
+</div>
+
+</body>
+</html>

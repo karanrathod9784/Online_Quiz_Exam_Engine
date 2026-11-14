@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Examination Result | Online Quiz Engine</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .result-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .result-score {
+            font-size: 48px;
+            margin: 20px 0;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .result-detail-card {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-detail-card h3 {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .result-detail-card p {
+            color: #1e40af;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .result-message {
+            color: #16a34a;
+            font-weight: 600;
+            margin: 15px 0;
+        }
+
+        @media (max-width: 500px) {
+            .result-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <header>
+        <div>
+            <h1>Online Quiz Engine</h1>
+            <p>Examination Result</p>
+        </div>
+    </header>
+
+    <!-- Result Card -->
+    <div class="result-card">
+
+        <div class="result-icon">🏆</div>
+
+        <h1>Examination Completed!</h1>
+
+        <p>Congratulations! Your examination has been submitted.</p>
+
+        <!-- Score -->
+        <div class="result-score">
+            {{ score }} / {{ total_questions }}
+        </div>
+
+        <h2>Your Score</h2>
+
+        <!-- Percentage -->
+        {% if total_questions > 0 %}
+
+            <h2>
+                {{ "%.2f"|format(score / total_questions * 100) }}%
+            </h2>
+
+        {% else %}
+
+            <h2>0%</h2>
+
+        {% endif %}
+
+        <p class="result-message">
+            Your result has been recorded successfully.
+        </p>
+
+        <!-- Result Details -->
+        <div class="result-details">
+
+            <div class="result-detail-card">
+                <h3>Correct Answers</h3>
+                <p>{{ score }}</p>
+            </div>
+
+            <div class="result-detail-card">
+                <h3>Total Questions</h3>
+                <p>{{ total_questions }}</p>
+            </div>
+
+        </div>
+
+        <!-- Navigation -->
+        <a class="btn"
+           href="{{ url_for('available_quizzes') }}">
+            Back to Quizzes
+        </a>
+
+        <a class="btn"
+           href="{{ url_for('dashboard') }}">
+            Student Dashboard
+        </a>
+
+    </div>
+
+    <footer>
+        <p>Online Quiz and Exam Engine | Student Portal</p>
+    </footer>
+
+</div>
+
+</body>
+</html>

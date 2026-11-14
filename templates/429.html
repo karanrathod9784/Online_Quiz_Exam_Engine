@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Too Many Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f6fb;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 450px;
+            margin: auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 { color: #dc3545; }
+        p { color: #555; }
+
+        a {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 12px 22px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Too Many Requests!</h1>
+        <h2>HTTP Error 429</h2>
+        <p>You have entered incorrect login details too many times.</p>
+        <p>Please wait one minute before trying again.</p>
+        <a href="/login">Back to Login</a>
+    </div>
+</body>
+</html>

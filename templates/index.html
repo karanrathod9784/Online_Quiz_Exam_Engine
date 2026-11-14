@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Online Quiz and Exam Engine</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        /* Navigation */
+        nav {
+            background: #1e40af;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        nav h2 {
+            color: white;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 18px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #bfdbfe;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 85px 20px;
+            background: linear-gradient(135deg, #1e40af, #2563eb);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 25px;
+            margin: 8px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn-white {
+            background: white;
+            color: #1e40af;
+        }
+
+        .btn-outline {
+            border: 2px solid white;
+            color: white;
+        }
+
+        /* Features */
+        .features {
+            padding: 55px 7%;
+            text-align: center;
+        }
+
+        .features h2 {
+            color: #1e40af;
+            margin-bottom: 30px;
+        }
+
+        .feature-container {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #00000010;
+        }
+
+        .feature-card h3 {
+            color: #1e40af;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #172554;
+            color: white;
+            text-align: center;
+            padding: 22px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                justify-content: center;
+                text-align: center;
+            }
+
+            nav a {
+                margin: 7px;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <h2>Online Quiz Engine</h2>
+
+        <div>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('login') }}">Student Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            <a href="{{ url_for('admin_login') }}">Admin Login</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+
+        <h1>Online Quiz and Exam Engine</h1>
+
+        <p>
+            Welcome to our Online Examination Platform.<br>
+            Practice your knowledge, take online exams
+            and check your performance instantly.
+        </p>
+
+        <a href="{{ url_for('login') }}"
+           class="btn btn-white">
+            Student Login
+        </a>
+
+        <a href="{{ url_for('register') }}"
+           class="btn btn-outline">
+            Create Account
+        </a>
+
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+
+        <h2>Our Features</h2>
+
+        <div class="feature-container">
+
+            <div class="feature-card">
+                <h3>Online Examinations</h3>
+                <p>
+                    Attempt multiple-choice questions
+                    through an online examination system.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Exam Timer</h3>
+                <p>
+                    Complete your examination within
+                    the given time limit.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Instant Results</h3>
+                <p>
+                    Get your examination score and
+                    percentage after submission.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Performance Analytics</h3>
+                <p>
+                    Track examination performance
+                    and review your previous results.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>
+            © 2026 Online Quiz and Exam Engine.
+            All Rights Reserved.
+        </p>
+        <p>Developed using Python, Flask and SQLite.</p>
+    </footer>
+
+</body>
+</html>

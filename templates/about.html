@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About Us | Online Quiz and Exam Engine</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f1f5ff;
+            color: #334155;
+        }
+
+        nav {
+            background: #1e40af;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            font-size: 23px;
+        }
+
+        nav div {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            text-align: center;
+            padding: 75px 20px;
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            margin-bottom: 18px;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.7;
+            font-size: 16px;
+            color: #e0eaff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #1e40af;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        .intro {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            line-height: 1.8;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 45px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+            margin-bottom: 45px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-top: 4px solid #2563eb;
+        }
+
+        .card h3 {
+            color: #1e40af;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .technologies {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 45px;
+        }
+
+        .tech-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .tech {
+            background: #eaf0ff;
+            color: #1e40af;
+            padding: 12px 22px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .cta {
+            text-align: center;
+            background: #dce7ff;
+            padding: 40px 20px;
+            border-radius: 14px;
+            margin-bottom: 50px;
+        }
+
+        .cta h2 {
+            color: #1e40af;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            margin-bottom: 22px;
+        }
+
+        .cta a {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 13px 28px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .cta a:hover {
+            background: #1e40af;
+        }
+
+        footer {
+            background: #172554;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 650px) {
+            nav {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            nav h2 {
+                font-size: 19px;
+            }
+
+            nav div {
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            .hero h1 {
+                font-size: 29px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <h2>Online Quiz Engine</h2>
+
+        <div>
+            <a href="/">Home</a>
+            <a href="/login">Student Login</a>
+            <a href="/register">Register</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>About Our Project</h1>
+
+        <p>
+            An Online Quiz and Exam Engine designed to make
+            examinations simple, organized and accessible.
+            Test your knowledge and track your performance
+            through an easy-to-use platform.
+        </p>
+    </section>
+
+    <div class="container">
+
+        <h2 class="section-title">Who We Are</h2>
+
+        <div class="intro">
+            <p>
+                The Online Quiz and Exam Engine is a web-based
+                application developed using Python and Flask.
+                It provides a platform where students can
+                register, log in, attempt online multiple-choice
+                quizzes and view their examination results.
+            </p>
+
+            <br>
+
+            <p>
+                Administrators can create quizzes, add questions,
+                manage examinations and monitor student performance.
+                The system aims to make online assessments more
+                efficient and user-friendly.
+            </p>
+        </div>
+
+        <h2 class="section-title">Project Objectives</h2>
+
+        <div class="grid">
+
+            <div class="card">
+                <h3>Easy Online Examinations</h3>
+                <p>
+                    Allow students to attempt quizzes online
+                    without requiring paper-based examinations.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Automated Evaluation</h3>
+                <p>
+                    Calculate quiz scores automatically and
+                    provide students with their results.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Performance Tracking</h3>
+                <p>
+                    Maintain student examination history and
+                    provide performance analytics.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Quiz Management</h3>
+                <p>
+                    Provide administrators with tools to create
+                    quizzes, manage questions and monitor results.
+                </p>
+            </div>
+
+        </div>
+
+        <h2 class="section-title">Technologies Used</h2>
+
+        <div class="technologies">
+
+            <div class="tech-list">
+                <span class="tech">Python</span>
+                <span class="tech">Flask</span>
+                <span class="tech">SQLite</span>
+                <span class="tech">HTML5</span>
+                <span class="tech">CSS3</span>
+                <span class="tech">JavaScript</span>
+                <span class="tech">Matplotlib</span>
+            </div>
+
+        </div>
+
+        <div class="cta">
+            <h2>Ready to Test Your Knowledge?</h2>
+
+            <p>
+                Create your student account and start
+                attempting online quizzes.
+            </p>
+
+            <a href="/register">Get Started</a>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Online Quiz and Exam Engine. All Rights Reserved.</p>
+        <p>Developed using Python, Flask and SQLite.</p>
+    </footer>
+
+</body>
+</html>

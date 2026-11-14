@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attempt Quiz | Online Quiz Engine</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .exam-header {
+            background: linear-gradient(135deg, #1e40af, #2563eb);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .exam-header h1 {
+            color: white;
+            margin: 0;
+        }
+
+        .timer-box {
+            background: #fee2e2;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            color: #b91c1c;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .timer {
+            font-size: 24px;
+            color: #b91c1c;
+        }
+
+        .question {
+            background: white;
+            padding: 25px;
+            margin-top: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 3px 10px #00000008;
+        }
+
+        .question h3 {
+            color: #1e293b;
+            margin-bottom: 18px;
+        }
+
+        .option-label {
+            display: block;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .option-label:hover {
+            background: #eff6ff;
+            border-color: #2563eb;
+        }
+
+        .option-label input {
+            width: auto;
+            margin: 0 10px 0 0;
+        }
+
+        .submit-btn {
+            background: #16a34a;
+            padding: 14px 30px;
+            font-size: 16px;
+            margin-top: 25px;
+        }
+
+        .submit-btn:hover {
+            background: #15803d;
+        }
+
+        @media (max-width: 600px) {
+            .exam-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .question {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Exam Header -->
+    <div class="exam-header">
+
+        <div>
+            <h1>{{ quiz["title"] }}</h1>
+            <p>Online Examination</p>
+        </div>
+
+        <div>
+            <strong>Time Remaining</strong>
+            <div class="timer" id="timer"
+                 data-expiry="{{ expires_at_ms }}">
+                Loading...
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Instructions -->
+    <div class="section">
+        <h2>Examination Instructions</h2>
+
+        <p>1. Read every question carefully.</p>
+        <p>2. Select one answer for each question.</p>
+        <p>3. Complete your examination before time expires.</p>
+        <p>4. Your exam will be submitted automatically when time is over.</p>
+    </div>
+
+    <!-- Quiz Form -->
+    <form id="examForm"
+          method="POST"
+          action="{{ url_for('submit_quiz', quiz_id=quiz['id']) }}">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        {% for question in questions %}
+
+        <div class="question">
+
+            <h3>
+                Question {{ loop.index }}:
+                {{ question["question_text"] }}
+            </h3>
+
+            <label class="option-label">
+                <input type="radio"
+                       name="question_{{ question['id'] }}"
+                       value="A"
+                       required>
+                A. {{ question["option_a"] }}
+            </label>
+
+            <label class="option-label">
+                <input type="radio"
+                       name="question_{{ question['id'] }}"
+                       value="B">
+                B. {{ question["option_b"] }}
+            </label>
+
+            <label class="option-label">
+                <input type="radio"
+                       name="question_{{ question['id'] }}"
+                       value="C">
+                C. {{ question["option_c"] }}
+            </label>
+
+            <label class="option-label">
+                <input type="radio"
+                       name="question_{{ question['id'] }}"
+                       value="D">
+                D. {{ question["option_d"] }}
+            </label>
+
+        </div>
+
+        {% endfor %}
+
+        <!-- Submit Button -->
+        <div class="section">
+
+            <button type="submit"
+                    id="submitButton"
+                    class="submit-btn">
+                Submit Examination
+            </button>
+
+        </div>
+
+    </form>
+
+    <footer>
+        <p>Online Quiz and Exam Engine | Examination Portal</p>
+    </footer>
+
+</div>
+
+<script>
+
+const timerDisplay = document.getElementById("timer");
+const examForm = document.getElementById("examForm");
+const submitButton = document.getElementById("submitButton");
+
+const expiryTime = Number(timerDisplay.dataset.expiry);
+
+let submitted = false;
+let timerInterval;
+
+function updateTimer() {
+
+    const remaining = expiryTime - Date.now();
+
+    if (remaining <= 0) {
+
+        timerDisplay.textContent = "Time Over!";
+
+        clearInterval(timerInterval);
+
+        if (!submitted) {
+
+            submitted = true;
+            submitButton.disabled = true;
+            submitButton.textContent = "Submitting...";
+
+            // Automatically submit the exam
+            examForm.submit();
+        }
+
+        return;
+    }
+
+    const minutes = Math.floor(remaining / 60000);
+
+    const seconds = Math.floor(
+        (remaining % 60000) / 1000
+    );
+
+    timerDisplay.textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+}
+
+// Prevent duplicate manual submissions
+examForm.addEventListener("submit", function(event) {
+
+    if (submitted) {
+        event.preventDefault();
+        return;
+    }
+
+    submitted = true;
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
+
+    clearInterval(timerInterval);
+});
+
+// Start countdown
+updateTimer();
+
+timerInterval = setInterval(updateTimer, 1000);
+
+</script>
+
+</body>
+</html>
