@@ -1,6 +1,32 @@
+
+# Python
 .venv/
 __pycache__/
-*.pyc
+*.py[cod]
+
+# Environment variables and secrets
 .env
+.env.*
+!.env.example
+
+# Database files
 instance/
 *.db
+*.sqlite
+*.sqlite3
+
+# Generated charts
+static/attempt_status.png
+static/quiz_performance.png
+
+# Temporary files
+*.log
+.pytest_cache/
+
+# Local database migration and testing scripts
+check_sqlite_data.py
+check_supabase_tables.py
+create_postgres_tables.py
+inspect_sqlite_schema.py
+migrate_sqlite_to_supabase.py
+test_supabase.py

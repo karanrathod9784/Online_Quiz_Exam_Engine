@@ -14,7 +14,8 @@ from flask import (
     redirect, url_for, session,flash
 )
 from flask_wtf.csrf import CSRFProtect
-import sqlite3
+import pg8000.dbapi
+from database import get_db_connection
 from werkzeug.security import (
     generate_password_hash,
     check_password_hash
@@ -44,12 +45,6 @@ app.config["SESSION_COOKIE_SECURE"] = (
     os.environ.get("COOKIE_SECURE", "false").lower() == "true"
 )
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=30)
-
-
-def get_db_connection():
-    connection = sqlite3.connect("quiz.db")
-    connection.row_factory = sqlite3.Row
-    return connection
 
 
 @app.route("/")
@@ -108,7 +103,7 @@ def register():
 
             return redirect(url_for("login"))
 
-        except sqlite3.IntegrityError:
+        except pg8000.dbapi.IntegrityError:
             return render_template(
                 "register.html",
                 error="This email is already registered.",
@@ -633,6 +628,11 @@ def start_quiz(quiz_id):
 
     connection = get_db_connection()
     connection.execute("BEGIN IMMEDIATE")
+    # Lock this student's row to prevent duplicate simultaneous attempts.
+    connection.execute(
+       "SELECT id FROM users WHERE id = ? FOR UPDATE",
+       (session["user_id"],)
+    ).fetchone()
 
     quiz = connection.execute(
         "SELECT * FROM quizzes WHERE id = ?",
@@ -742,7 +742,8 @@ def submit_quiz(quiz_id):
     attempt = connection.execute(
         """SELECT * FROM quiz_attempts
         WHERE user_id = ? AND quiz_id = ? AND status = 'active'
-        ORDER BY id DESC LIMIT 1""",
+        ORDER BY id DESC LIMIT 1
+        FOR UPDATE""",
         (session["user_id"], quiz_id)
     ).fetchone()
 
